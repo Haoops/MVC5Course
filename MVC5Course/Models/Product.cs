@@ -22,21 +22,20 @@ namespace MVC5Course.Models
         }
 
         public int ProductId { get; set; }
-        [Required]
 
+        [Required]
         public string ProductName { get; set; }
-        [Required]
 
-        public Nullable<decimal> Price { get; set; }
         [Required]
         [Range(1, 999, ErrorMessage = "價格必須介於 1 ~ 999 間！")]
         [DisplayFormat(DataFormatString = "{0:C}")]
+        public Nullable<decimal> Price { get; set; }
 
+        [Required]
         public Nullable<bool> Active { get; set; }
-        [Required]
 
-        public Nullable<decimal> Stock { get; set; }
         [Required]
+        public Nullable<decimal> Stock { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrderLine> OrderLine { get; set; }
