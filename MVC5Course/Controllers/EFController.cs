@@ -13,7 +13,7 @@ namespace MVC5Course.Controllers
         FabricsEntities db = new FabricsEntities();
 
         // GET: EF
-        public ActionResult Index()
+        public ActionResult Index(bool? IsActive, string Keyword)
         {
             var product = new Product()
             {
@@ -40,15 +40,32 @@ namespace MVC5Course.Controllers
             //var data = db.Product.OrderByDescending(p => p.ProductId).ToList();
 
             //﹝Linq﹞ 取得 5筆 Product 中的資料以 DESC 排序 ToList();
-            var data = db.Product.OrderByDescending(p => p.ProductId).Take(5);
+            //var data = db.Product.OrderByDescending(p => p.ProductId).Take(5);
 
-            //data 中取得的資料 Price + 3
-            foreach (var item in data)
+            //﹝Linq﹞ 取得 5筆 Product 中的資料以 DESC 排序 ToList();
+            //var data = db.Product.Where(p => p.Active.HasValue ? p.Active.Value == IsActive : false).OrderByDescending(p => p.ProductId).Take(5);
+
+            var data = db.Product.OrderByDescending(p => p.ProductId).AsQueryable();
+
+            //﹝判斷﹞是否有參數 Active
+            if (IsActive.HasValue)
             {
-                item.Price = item.Price + 3;
+                data = data.Where(p => p.Active.HasValue ? p.Active.Value == IsActive.Value : false);
             }
 
-            db.SaveChanges();
+            //﹝判斷﹞是否有參數 Keyword
+            if (!string.IsNullOrEmpty(Keyword))
+            {
+                data = data.Where(p => p.ProductName.Contains(Keyword));
+            }
+
+            ////data 中取得的資料 Price + 3
+            //foreach (var item in data)
+            //{
+            //    item.Price = item.Price + 3;
+            //}
+
+            //SaveChanges();
 
             return View(data);
         }

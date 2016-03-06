@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<MVC5Course.Models.Product>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "產品資料列表 Day 2";
 }
 
-<h2>Index</h2>
+<h2 style="font-family: 'Microsoft JhengHei UI'">產品資料列表 Day 2</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -50,7 +50,7 @@
             <td>
                 @*@Html.ActionLink("Edit", "Edit", new { id=item.ProductId }) |*@
                 @Html.ActionLink("詳細資料", "Detail", new { id = item.ProductId })|
-                @Html.ActionLink("刪除", "Delete", new { id=item.ProductId })
+                @Html.ActionLink("刪除", "Delete", new { id = item.ProductId })
             </td>
         </tr>
     }
