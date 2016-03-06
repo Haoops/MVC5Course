@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -13,5 +14,18 @@ namespace MVC5Course.Controllers
         {
             return View();
         }
+
+        // Code Snippet : mvcaction4
+        public ActionResult MemberProfile()
+        {
+            return View();
+        }
+
+        // Code Snippet : mvcpostaction4
+        [HttpPost]
+        public ActionResult MemberProfile(MemberViewModel data)
+        {
+            return View();
+        }       
     }
 }
