@@ -18,6 +18,14 @@ namespace MVC5Course
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            /*
+                預設會執行 WebFormViewEngine、RazorViewEngine
+                清除掉 Engines後再加入 RazorViewEngine 即會址執行 RazorViewEngine            
+            */
+            ViewEngines.Engines.Clear();
+            ViewEngines.Engines.Add(new RazorViewEngine());
+
         }
     }
 }
