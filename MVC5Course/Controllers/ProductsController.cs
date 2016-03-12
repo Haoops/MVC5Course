@@ -34,10 +34,15 @@ namespace MVC5Course.Controllers
             }
             // Product product = db.Product.Find(id);
             Product product = repo.Find(id.Value);
+
             if (product == null && product.IsDelete)
             {
                 return HttpNotFound();
             }
+
+            // ViewData["OrderLine"] = product.OrderLine.ToList();
+            ViewBag.OrderLines = product.OrderLine.ToList();
+
             return View(product);
         }
 
@@ -94,6 +99,9 @@ namespace MVC5Course.Controllers
                 var db = (FabricsEntities)repo.UnitOfWork.Context;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
+
+                TempData["EditSuccess"] = "商品編輯成功！";
+
                 return RedirectToAction("Index");
             }
             return View(product);
