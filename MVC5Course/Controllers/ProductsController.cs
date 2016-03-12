@@ -10,14 +10,18 @@ using MVC5Course.Models;
 
 namespace MVC5Course.Controllers
 {
-    public class ProductsController : Controller
+    public class ProductsController : BaseController
     {
-        private FabricsEntities db = new FabricsEntities();
+        // private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
         public ActionResult Index()
         {
-            return View(db.Product.ToList());
+
+            // var data = db.Product.Where(p => !p.IsDelete).ToString();
+            var data = repo.All();
+            return View(data);
+
         }
 
         // GET: Products/Details/5
@@ -25,10 +29,12 @@ namespace MVC5Course.Controllers
         {
             if (id == null)
             {
+
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
-            if (product == null)
+            // Product product = db.Product.Find(id);
+            Product product = repo.Find(id.Value);
+            if (product == null && product.IsDelete)
             {
                 return HttpNotFound();
             }
@@ -50,8 +56,10 @@ namespace MVC5Course.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Product.Add(product);
-                db.SaveChanges();
+                // db.Product.Add(product);
+                repo.Add(product);
+                // db.SaveChanges();
+                repo.UnitOfWork.Commit();
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +73,8 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            // Product product = db.Product.Find(id);
+            Product product = repo.Find(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -78,10 +87,11 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock")] Product product)
+        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock,IsDelete")] Product product)
         {
             if (ModelState.IsValid)
             {
+                var db = (FabricsEntities)repo.UnitOfWork.Context;
                 db.Entry(product).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -96,7 +106,8 @@ namespace MVC5Course.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Product product = db.Product.Find(id);
+            // Product product = db.Product.Find(id);
+            Product product = repo.Find(id.Value);
             if (product == null)
             {
                 return HttpNotFound();
@@ -109,9 +120,12 @@ namespace MVC5Course.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Product product = db.Product.Find(id);
-            db.Product.Remove(product);
-            db.SaveChanges();
+            // Product product = db.Product.Find(id);
+            Product product = repo.Find(id);
+            // db.Product.Remove(product);
+            product.IsDelete = true;
+            //db.SaveChanges();
+            repo.UnitOfWork.Commit();
             return RedirectToAction("Index");
         }
 
@@ -119,9 +133,17 @@ namespace MVC5Course.Controllers
         {
             if (disposing)
             {
+                var db = (FabricsEntities)repo.UnitOfWork.Context;
                 db.Dispose();
+
             }
             base.Dispose(disposing);
+        }
+
+        public ActionResult ShowDelete()
+        {
+            var data = repo.All(true, true);
+            return View(data);
         }
     }
 }
