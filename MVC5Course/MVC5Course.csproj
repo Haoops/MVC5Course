@@ -426,6 +426,8 @@
     <Content Include="Views\Home\ErrorSQL.cshtml" />
     <Content Include="Views\Home\RazorTest.cshtml" />
     <Content Include="Views\NewLayout\Index.cshtml" />
+    <Content Include="Views\NewLayout\_LayoutBootstrap.cshtml" />
+    <Content Include="Views\NewLayout\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
