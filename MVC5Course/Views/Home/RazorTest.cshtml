@@ -1,0 +1,48 @@
+﻿@model Int32[]
+
+@*
+    @{
+        var i = true;
+
+        if (i)
+        {
+            @:哈囉<br />
+        }
+
+    }
+
+
+    @{
+        var j = true;
+
+        if (j)
+        {
+            <p>
+                哈囉
+            </p>
+        }
+        <br/>
+        @DateTime.Now;
+    }*@
+@*
+    Razor Practice
+
+*@
+
+
+@foreach (var i in Model)
+{
+    @i
+}
+
+@foreach (var i in Model)
+{
+@(i + " ")
+}
+
+<ul>
+@foreach (var i in Model)
+{
+    <li>@i</li>
+}
+</ul>
