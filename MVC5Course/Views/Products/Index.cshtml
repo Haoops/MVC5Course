@@ -47,7 +47,13 @@
         @for (int i = 0; i < products.Length; i++)
         {
             @Html.HiddenFor(modelItem => products[i].ProductId)
-            <tr>
+
+            if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId)
+            {
+                ViewBag.SelectedProductItem = products[i];
+            }
+
+            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")  }>
                 <td>
                     @Html.DisplayFor(modelItem => products[i].ProductName)
                 </td>
@@ -64,8 +70,9 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = products[i].ProductId }) |
-                    @Html.ActionLink("Details", "Details", new { id = products[i].ProductId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = products[i].ProductId })
+                    @Html.ActionLink("Details", "Index", new { ProductID = products[i].ProductId, type = "Details" }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = products[i].ProductId }) |
+                    @Html.ActionLink("OrderLines", "Index", new { ProductID = products[i].ProductId, type = "OrderLines" })
                 </td>
             </tr>
         }
@@ -74,8 +81,17 @@
     <button class="btn btn-primary">批次更新</button>
             }
 
-@section breadcrumb{
-    <li>
-        @Html.ActionLink("產品列表(Day 1)", "Index", "Products")
-    </li>
+<hr />
+
+@if (ViewBag.SelectedProductId != null)
+{
+    if (ViewBag.type == "Details")
+    {
+        @Html.Partial("Details", ViewData["SelectedProductItem"])
+    }
+    else if (ViewBag.type == "OrderLines")
+    {
+        @Html.Action("Index", "OrderLines", new { ProductId = ViewBag.SelectedProductId })
+    }
+
 }

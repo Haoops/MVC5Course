@@ -15,11 +15,19 @@ namespace MVC5Course.Controllers
         // private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index()
+        public ActionResult Index(int? ProductId, string type)
         {
 
             // var data = db.Product.Where(p => !p.IsDelete).ToString();
             var data = repo.All().Take(5);
+
+            ViewBag.type = type;
+
+            if (ProductId.HasValue)
+            {
+                ViewBag.SelectedProductId = ProductId.Value;
+            }
+
             return View(data);
 
         }
