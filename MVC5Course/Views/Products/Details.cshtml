@@ -45,29 +45,32 @@
     </dl>
 </div>
 
-<h2>OrderLines</h2>
-
-<div>
-    <table class="table">
-        <tr>
-            <td>ProductId</td>
-            <td>ProductName</td>
-            <td>LineNumber</td>
-            <td>Qty</td>
-            <td>LineTotal</td>
-        </tr>
-        @foreach (var item in ViewBag.OrderLines)
-        {
+@*<div>
+        <table class="table">
             <tr>
-                <td>@item.Product.ProductId</td>
-                <td>@item.Product.ProductName</td>
-                <td>@item.LineNumber</td>
-                <td>@item.Qty</td>
-                <td>@item.LineTotal</td>
+                <td>ProductId</td>
+                <td>ProductName</td>
+                <td>LineNumber</td>
+                <td>Qty</td>
+                <td>LineTotal</td>
             </tr>
-        }
-    </table>
-</div>
+            @foreach (var item in ViewBag.OrderLines)
+            {
+                <tr>
+                    <td>@item.Product.ProductId</td>
+                    <td>@item.Product.ProductName</td>
+                    <td>@item.LineNumber</td>
+                    <td>@item.Qty</td>
+                    <td>@item.LineTotal</td>
+                </tr>
+            }
+        </table>
+    </div>*@
+
+@* Html.Action *@
+@*@Html.Action("Index", "OrderLines", new { ProductId = Model.ProductId })*@
+@* Html.Partial *@
+@Html.Partial("../OrderLines/Index", Model.OrderLine)
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
