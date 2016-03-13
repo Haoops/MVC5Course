@@ -15,6 +15,7 @@ namespace MVC5Course.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: OrderLines
+        [ChildActionOnly]
         public ActionResult Index(int productId)
         {
             var orderLine = db.OrderLine.Where(p => p.ProductId == productId).Include(o => o.Order).Include(o => o.Product);
