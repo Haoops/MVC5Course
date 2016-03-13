@@ -11,33 +11,32 @@ namespace MVC5Course.Models
             return base.All().Where(p => !p.IsDelete);
         }
 
-        public IQueryable<Product> All(bool isAll,bool delete)
+        public IQueryable<Product> All(bool isAll, bool isDelete)
         {
             if (isAll)
             {
-                if (delete)
+                if (isDelete)
                 {
                     return base.All().Where(p => p.IsDelete);
-
                 }
-                else {
-
+                else
+                {
                     return base.All().Where(p => !p.IsDelete);
                 }
             }
             else
             {
-                if (delete)
+                if (isDelete)
                 {
                     return this.All().Where(p => p.IsDelete);
-
                 }
-                else {
-
+                else
+                {
                     return this.All().Where(p => !p.IsDelete);
                 }
             }
         }
+
 
         public Product Find(int id)
         {

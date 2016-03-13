@@ -14,7 +14,8 @@ namespace MVC5Course.Models
         {
             var str = (string)value;
 
-            return str.Contains(" ");
+            // return str.Contains(" ");
+            return true;
         }
     }
 }

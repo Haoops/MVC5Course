@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MVC5Course.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,25 +15,19 @@ namespace MVC5Course.Controllers
             return View();
         }
 
-        //資料繫結：強型別
+        ////簡單資料繫結：強型別
+        //[HttpPost]
+        //public ActionResult Index(string Name, DateTime Birthday)
+        //{
+        //    return Content(Name + "  " + Birthday);
+        //}
+
+        //複雜資料繫結：強型別
         [HttpPost]
-        public ActionResult Index(string Name, DateTime Birthday)
+        public ActionResult Index(MemberViewModel data)
         {
-            return Content(Name + "  " + Birthday);
+            return Content(data.Name + "  " + data.Birthday);
         }
 
-        ////資料繫結：弱型別
-        //[HttpPost]
-        //public ActionResult Index(FormCollection form)
-        //{
-        //    return Content(form["Name"] + "  " + form["Birthday"]);
-        //}
-
-        ////資料繫結：Request.Form 取得 Request From上的物件名稱內容，極度不建議使用此作法
-        //[HttpPost]
-        //public ActionResult Index(string a)
-        //{
-        //    return Content(Request.Form["Name"] + "  " + Request.Form["Birthday"]);
-        //}
     }
 }

@@ -19,8 +19,32 @@ namespace MVC5Course.Controllers
         {
 
             // var data = db.Product.Where(p => !p.IsDelete).ToString();
-            var data = repo.All();
+            var data = repo.All().Take(5);
             return View(data);
+
+        }
+
+        [HttpPost]
+        public ActionResult Index(IList<Products批次更新ViewModel> products)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in products)
+                {
+                    var product = repo.Find(item.ProductId);
+
+                    product.Stock = item.Stock;
+                    product.Price = item.Price;
+
+                }
+
+                repo.UnitOfWork.Commit();
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(repo.All().Take(5));
+            }
 
         }
 
@@ -92,14 +116,19 @@ namespace MVC5Course.Controllers
         // 詳細資訊，請參閱 http://go.microsoft.com/fwlink/?LinkId=317598。
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,ProductName,Price,Active,Stock,IsDelete")] Product product)
+        public ActionResult Edit(int id, FormCollection form)
         {
-            if (ModelState.IsValid)
-            {
-                var db = (FabricsEntities)repo.UnitOfWork.Context;
-                db.Entry(product).State = EntityState.Modified;
-                db.SaveChanges();
+            ////[Bind(Include = "ProductId,ProductName,Price,Active,Stock,IsDelete")] Product product
+            //var db = (FabricsEntities)repo.UnitOfWork.Context;
+            //db.Entry(product).State = EntityState.Modified;
+            //db.SaveChanges();
 
+            Product product = repo.Find(id);
+
+            if (TryUpdateModel<Product>(product, new string[] {
+                "ProductId","ProductName","Price","Stock"}))
+            {
+                repo.UnitOfWork.Commit();
                 TempData["EditSuccess"] = "商品編輯成功！";
 
                 return RedirectToAction("Index");

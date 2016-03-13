@@ -1,66 +1,60 @@
 ﻿@model IEnumerable<MVC5Course.Models.Product>
 
 @{
-    ViewBag.Title = "產品資料列表 Day 1";
+    ViewBag.Title = "Index";
 }
 
-<h2 style="font-family: 'Microsoft JhengHei UI'">產品資料列表 Day 1</h2>
+<h2>Index</h2>
+
 <p>
     @Html.ActionLink("Create New", "Create")
-
-    @if (!string.IsNullOrEmpty(Convert.ToString(TempData["EditSuccess"])))
-    {
-        <h3>@TempData["EditSuccess"]</h3>
-    }
-
 </p>
+
 
 @using (Html.BeginForm())
 {
     <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.ProductId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.ProductName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Active)
-                </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDelete)
             </th>
             <th></th>
         </tr>
 
-        @*
-            products[0].ProductId
-            products[0].ProductName
-            products[1].ProductId
-            products[1].ProductName
-        *@
-
         @{
             var products = Model.ToArray();
         }
+
         @for (int i = 0; i < products.Length; i++)
         {
             @Html.HiddenFor(modelItem => products[i].ProductId)
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => products[i].ProductName)
+                    @Html.DisplayFor(modelItem => products[i].ProductId)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => products[i].ProductName)
                 </td>
                 <td>
                     @Html.EditorFor(modelItem => products[i].Price)
-                    @Html.ValidationMessageFor(modelItem => products[i].Price)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem =>  data[i].Active)
-                    </td>*@
                 <td>
                     @Html.EditorFor(modelItem => products[i].Stock)
-                    @Html.ValidationMessageFor(modelItem => products[i].Stock)
+                </td>
+                <td>
+                    @Html.EditorFor(modelItem => products[i].IsDelete)
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = products[i].ProductId }) |
@@ -71,5 +65,5 @@
         }
 
     </table>
-    <button class="btn btn-primary">批次更新</button>
+    <button class="btn btn-success">進行批次更新</button>
             }
