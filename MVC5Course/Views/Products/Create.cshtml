@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Product</h4>
         <hr />
@@ -63,4 +63,12 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+}
+
+@section breadcrumb{
+    <li>
+        @Html.ActionLink("產品列表(Day 1)", "Index", "Products")
+        <i class="icon-angle-right"></i>
+    </li>
+    <li><a href="#">新增產品</a></li>
 }

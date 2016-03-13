@@ -1,12 +1,10 @@
 ﻿
-                <ul class="breadcrumb">
-                    <li>
-                        <i class="icon-home"></i>
-                        <a href="index.html">Home</a>
-                        <i class="icon-angle-right"></i>
-                    </li>
-                    <li><a href="#">Dashboard</a></li>
-                </ul>
+
+@section breadcrumb{
+    <li>
+        @Html.ActionLink("DashBoard", "Index", "NewLayout")
+    </li>
+}
                 <div class="row-fluid">
 
                     <div class="span3 statbox purple" onTablet="span6" onDesktop="span3">

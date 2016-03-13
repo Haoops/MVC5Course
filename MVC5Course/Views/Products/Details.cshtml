@@ -73,3 +73,11 @@
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
     @Html.ActionLink("Back to List", "Index")
 </p>
+
+@section breadcrumb{
+    <li>
+        @Html.ActionLink("產品列表(Day 1)", "Index", "Products")
+        <i class="icon-angle-right"></i>
+    </li>
+    <li><a href="#">商品檢視</a></li>
+}
