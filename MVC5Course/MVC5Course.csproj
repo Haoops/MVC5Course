@@ -418,7 +418,6 @@
     <Content Include="Views\EF\Index.cshtml" />
     <Content Include="Views\EF\Detail.cshtml" />
     <Content Include="Views\EF\QueryPlan.cshtml" />
-    <Content Include="Views\Products\ShowDelete.cshtml" />
     <Content Include="Views\AR\Index.cshtml" />
     <Content Include="Views\MB\Index.cshtml" />
     <Content Include="Views\ProductThree\Index.cshtml" />

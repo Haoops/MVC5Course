@@ -4,9 +4,11 @@
     ViewBag.Title = "產品資料列表 Day 1";
 }
 
-<h2 style="font-family: 'Microsoft JhengHei UI'">產品資料列表 Day 1</h2>
+<h2>產品資料列表 Day 1</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
+
+    @Html.DropDownList("isActive", "-- 是否有效 --")
 
     @if (!string.IsNullOrEmpty(Convert.ToString(TempData["EditSuccess"])))
     {
@@ -53,7 +55,7 @@
                 ViewBag.SelectedProductItem = products[i];
             }
 
-            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")  }>
+            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")   }>
                 <td>
                     @Html.DisplayFor(modelItem => products[i].ProductName)
                 </td>
@@ -87,7 +89,11 @@
 {
     if (ViewBag.type == "Details")
     {
-        @Html.Partial("Details", ViewData["SelectedProductItem"])
+        if (ViewData["SelectedProductItem"] != null)
+        {
+            @Html.Partial("Details", ViewData["SelectedProductItem"])
+
+        }
     }
     else if (ViewBag.type == "OrderLines")
     {

@@ -15,12 +15,28 @@ namespace MVC5Course.Controllers
         // private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index(int? ProductId, string type)
+        public ActionResult Index(int? ProductId, string type, bool? isActive)
         {
 
             // var data = db.Product.Where(p => !p.IsDelete).ToString();
-            var data = repo.All().Take(5);
+            // var data = repo.All().Take(5);
+            
+            // Repo 取得全部的資料
+            var data = repo.All(true);
 
+            // 判斷 isActive是否有傳值進來
+            if (isActive.HasValue)
+            {
+                data = data.Where(p => p.Active.HasValue && p.Active == isActive.Value);
+                
+            }
+
+            // 設定 View上的下拉式選單的選項
+            var items = new List<SelectListItem>();
+            items.Add(new SelectListItem() { Value = "true", Text = "有效" });
+            items.Add(new SelectListItem() { Value = "false", Text = "無效" });
+            ViewData["isActive"] = new SelectList(items, "Value", "Text");
+            
             ViewBag.type = type;
 
             if (ProductId.HasValue)
@@ -29,7 +45,6 @@ namespace MVC5Course.Controllers
             }
 
             return View(data);
-
         }
 
         [HttpPost]
@@ -183,12 +198,6 @@ namespace MVC5Course.Controllers
 
             }
             base.Dispose(disposing);
-        }
-
-        public ActionResult ShowDelete()
-        {
-            var data = repo.All(true, true);
-            return View(data);
-        }
+        }        
     }
 }
