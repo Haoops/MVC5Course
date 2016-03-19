@@ -1,0 +1,20 @@
+﻿@model string
+
+@if (!string.IsNullOrEmpty(Model))
+{
+    if (Model == "M")
+    {
+        @:男性
+    }
+    else if (Model == "F")
+    {
+        @:女性
+    }
+    else
+    {
+        @:不確定
+    }
+}
+else {
+    @:不確定
+    }

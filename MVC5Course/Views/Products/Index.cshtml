@@ -37,9 +37,9 @@
             <th>
                 @Html.DisplayNameFor(model => model.Price)
             </th>
-            @*<th>
-                    @Html.DisplayNameFor(model => model.Active)
-                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.Active)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Stock)
             </th>
@@ -65,7 +65,7 @@
                 ViewBag.SelectedProductItem = products[i];
             }
 
-            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")        }>
+            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")         }>
                 <td>
                     @Html.DisplayFor(modelItem => products[i].ProductName)
                 </td>
@@ -73,9 +73,9 @@
                     @Html.EditorFor(modelItem => products[i].Price)
                     @Html.ValidationMessageFor(modelItem => products[i].Price)
                 </td>
-                @*<td>
-                        @Html.DisplayFor(modelItem =>  data[i].Active)
-                    </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => products[i].Active)
+                </td>
                 <td>
                     @Html.EditorFor(modelItem => products[i].Stock)
                     @Html.ValidationMessageFor(modelItem => products[i].Stock)
@@ -84,7 +84,7 @@
                     @Html.ActionLink("Edit", "Edit", new { id = products[i].ProductId }) |
                     @Html.ActionLink("Details", "Index", new { ProductID = products[i].ProductId, type = "Details" }) |
                     @Html.ActionLink("Delete", "Delete", new { id = products[i].ProductId }) |
-                    @Html.ActionLink("OrderLines", "Index", new { ProductID = products[i].ProductId, type = "OrderLines" })
+                    @Html.ActionLink("OrderLines", "Index", new { ProductID = products[i].ProductId, type = "OrderLines"})
                 </td>
             </tr>
         }

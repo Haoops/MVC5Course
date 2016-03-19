@@ -188,6 +188,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ARController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ClientsController.cs" />
     <Compile Include="Controllers\EFController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -313,6 +314,7 @@
     <Content Include="Content\ago.png" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\star.png" />
     <Content Include="favicon.ico" />
     <Content Include="file-manager.html" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -344,6 +346,8 @@
     </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="submenu.html" />
     <Content Include="submenu2.html" />
     <Content Include="widgets.html" />
@@ -433,6 +437,17 @@
     <Content Include="Views\OrderLines\Details.cshtml" />
     <Content Include="Views\OrderLines\Edit.cshtml" />
     <Content Include="Views\OrderLines\Index.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Product.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\Boolean.cshtml" />
+    <Content Include="Views\Clients\Create.cshtml" />
+    <Content Include="Views\Clients\Delete.cshtml" />
+    <Content Include="Views\Clients\Details.cshtml" />
+    <Content Include="Views\Clients\Edit.cshtml" />
+    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ClientGender.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ClientsCreditRating.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\Date.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ClientGender.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

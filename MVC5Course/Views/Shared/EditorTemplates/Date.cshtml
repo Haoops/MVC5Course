@@ -1,0 +1,6 @@
+﻿@model Nullable<System.DateTime>
+
+@if (Model.HasValue)
+{
+    @Html.TextBox("", Model.Value.ToString("yyyy-MM-dd"), new { @class = "form-control text-boxsingle-line", type = "date" })
+}
