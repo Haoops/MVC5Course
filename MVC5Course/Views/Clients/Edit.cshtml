@@ -11,7 +11,7 @@
 <h2>Edit</h2>
 
 
-@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "main" }))
+@using (Ajax.BeginForm(new AjaxOptions() { UpdateTargetId = "main", Confirm = "您確定要送出修改過的資料嗎？" }))
 {
     @Html.AntiForgeryToken()
 

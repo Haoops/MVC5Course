@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using MVC5Course.Models;
+using PagedList;
 
 namespace MVC5Course.Controllers
 {
@@ -15,10 +16,13 @@ namespace MVC5Course.Controllers
         private FabricsEntities db = new FabricsEntities();
 
         // GET: Clients
-        public ActionResult Index()
+        public ActionResult Index(int pageNo = 1)
         {
-            var client = db.Client.Include(c => c.Occupation);
-            return View(client.Take(10).ToList());
+            var client = db.Client.Include(c => c.Occupation).OrderBy(p => p.ClientId);
+
+            var data = client.ToPagedList(pageNo, 20);
+
+            return View(data);
         }
 
         // GET: Clients/Details/5
@@ -88,10 +92,9 @@ namespace MVC5Course.Controllers
             {
                 db.Entry(client).State = EntityState.Modified;
                 db.SaveChanges();
+                return View("Index", db.Client.Include(c => c.Occupation));
 
-                return View("Index", db.Client.Include(c => c.Occupation).Take(5));
-
-                //return RedirectToAction("Index");
+                // return RedirectToAction("Index");
             }
             ViewBag.OccupationId = new SelectList(db.Occupation, "OccupationId", "OccupationName", client.OccupationId);
             return View(client);
