@@ -5,17 +5,27 @@
 }
 
 <h2>產品資料列表 Day 1</h2>
-<p>
-    @Html.ActionLink("Create New", "Create")
 
-    @Html.DropDownList("isActive", "-- 是否有效 --")
+@using (Html.BeginForm("Index", "Products", FormMethod.Get))
+{
+    <p>
+        @Html.ActionLink("Create New", "Create")
+        ｜
+        @* 下拉式選單中的第一個值會與 ModelBinding 的值對應 *@
+        Is Active：@Html.DropDownList("isActive", null, "-- 是否有效 --", new { onchange = "this.form.submit();" })
+        ｜
+        Min Price：@Html.TextBox("minPrice", null, new { onchange = "this.form.submit();" })
+        ｜
+        Max Price：@Html.TextBox("maxPrice", null, new { onchange = "this.form.submit();" })
+        ｜
+        KeyWord：@Html.TextBox("keyWord", null, new { onchange = "this.form.submit();" })
+        @if (!string.IsNullOrEmpty(Convert.ToString(TempData["EditSuccess"])))
+        {
+            <h3>@TempData["EditSuccess"]</h3>
+        }
 
-    @if (!string.IsNullOrEmpty(Convert.ToString(TempData["EditSuccess"])))
-    {
-        <h3>@TempData["EditSuccess"]</h3>
-    }
-
-</p>
+    </p>
+}
 
 @using (Html.BeginForm())
 {
@@ -55,7 +65,7 @@
                 ViewBag.SelectedProductItem = products[i];
             }
 
-            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")   }>
+            <tr @if (ViewBag.SelectedProductId != null && ViewBag.SelectedProductId == products[i].ProductId) { @Html.Raw("style='background-color: lightyellow;'")        }>
                 <td>
                     @Html.DisplayFor(modelItem => products[i].ProductName)
                 </td>

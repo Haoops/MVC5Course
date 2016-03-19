@@ -15,7 +15,7 @@ namespace MVC5Course.Controllers
         // private FabricsEntities db = new FabricsEntities();
 
         // GET: Products
-        public ActionResult Index(int? ProductId, string type, bool? isActive)
+        public ActionResult Index(int? ProductId, string type, bool? isActive, int? minPrice, int? maxPrice, string keyWord)
         {
 
             // var data = db.Product.Where(p => !p.IsDelete).ToString();
@@ -24,11 +24,28 @@ namespace MVC5Course.Controllers
             // Repo 取得全部的資料
             var data = repo.All(true);
 
-            // 判斷 isActive是否有傳值進來
+            // 判斷 isActive 是否有傳值進來
             if (isActive.HasValue)
             {
                 data = data.Where(p => p.Active.HasValue && p.Active == isActive.Value);
-                
+            }
+
+            // 判斷 minPrice 是否有傳值進來
+            if (minPrice.HasValue)
+            {
+                data = data.Where(p => p.Price.HasValue && p.Price >= minPrice.Value);
+            }
+
+            // 判斷 maxPrice 是否有傳值進來
+            if (maxPrice.HasValue)
+            {
+                data = data.Where(p => p.Price.HasValue && p.Price <= maxPrice.Value);
+            }
+
+            // 判斷 keyWord 是否有傳值進來
+            if (!string.IsNullOrEmpty(keyWord))
+            {
+                data = data.Where(p => p.ProductName.Contains(keyWord));
             }
 
             // 設定 View上的下拉式選單的選項
@@ -44,7 +61,7 @@ namespace MVC5Course.Controllers
                 ViewBag.SelectedProductId = ProductId.Value;
             }
 
-            return View(data);
+            return View(data.Take(5));
         }
 
         [HttpPost]
